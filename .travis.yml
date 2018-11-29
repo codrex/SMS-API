@@ -1,0 +1,26 @@
+language: node_js
+
+node_js: '8.11.1'
+
+install:
+  - yarn install
+
+script:
+  - yarn test:ci --coverage
+
+env:
+  - NODE_ENV=test:ci
+
+cache:
+  directories:
+    - 'node_modules'
+
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+  - sequelize db:migrate:undo:all
+  - sequelize db:migrate
+
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
