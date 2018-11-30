@@ -26,9 +26,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     {},
   );
-  Message.associate = function association(models) {
-    Message.hasOne(models.User, { as: 'Sender', foreignKey: 'senderId' });
-    Message.hasOne(models.User, { as: 'Receiver', foreignKey: 'receiverId' });
-  };
+  // Message.associate = function association(models) {
+  //   Message.hasOne(models.User, { as: 'Sender', foreignKey: 'senderId' });
+  //   Message.hasOne(models.User, { as: 'Receiver', foreignKey: 'receiverId' });
+  // };
   return Message;
 };

@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "yarn clear-table && jest",
+    "clear-table": "NODE_ENV=test yarn migrate:undo && NODE_ENV=test yarn migrate",
     "migrate": "sequelize db:migrate",
     "migrate:undo": "sequelize db:migrate:undo:all"
   },
@@ -27,7 +28,8 @@
     "babel-jest": "^23.4.2",
     "eslint": "^5.9.0",
     "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.14.0"
+    "eslint-plugin-import": "^2.14.0",
+    "jest": "^23.6.0"
   },
   "dependencies": {
     "pg": "^7.7.1",

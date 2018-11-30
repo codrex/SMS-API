@@ -8,6 +8,7 @@
   },
   "rules": {
     "max-len": [2, 80, 4],
-    "import/prefer-default-export": "0"
+    "import/prefer-default-export": "0",
+    "no-underscore-dangle": "off"
   }
 }

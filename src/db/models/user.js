@@ -8,13 +8,14 @@ module.exports = (sequelize, DataTypes) => {
         unique: true,
         validate: {
           isNumeric: true,
+          notEmpty: true,
         },
       },
       name: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          isAlpha: true,
+          notEmpty: true,
         },
       },
     },
