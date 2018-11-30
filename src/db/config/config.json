@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "sms-dev",
+    "password": null,
+    "database": "sms_dev",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "sms-test",
+    "password": null,
+    "database": "sms_test",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "sms_prod",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}
