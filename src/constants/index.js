@@ -1,6 +1,6 @@
 const STATUS = {
-  READ: 'read',
-  UNREAD: 'unread',
+  READ: 'READ',
+  UNREAD: 'UNREAD',
 };
 module.exports = {
   STATUS,

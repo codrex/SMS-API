@@ -6,7 +6,6 @@ describe('User model repo', () => {
     it('should create user record', async () => {
       const userData = { phoneNumber: '09049484039', name: 'jone doe' };
       const userRecord = await User.create(db, userData);
-      expect(userRecord.id).toBe(1);
       expect(userRecord.phoneNumber).toBe(userData.phoneNumber);
       expect(userRecord.name).toBe(userData.name);
     });

@@ -1,5 +1,3 @@
-const { STATUS } = require('../../constants');
-
 module.exports = {
   up: (queryInterface, Sequelize) => queryInterface.createTable('Messages', {
     id: {
@@ -8,20 +6,29 @@ module.exports = {
       primaryKey: true,
       type: Sequelize.INTEGER,
     },
+    text: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
     status: {
-      type: Sequelize.ENUM(STATUS.READ, STATUS.UNREAD),
+      type: Sequelize.STRING,
       allowNull: false,
     },
     senderId: {
       type: Sequelize.INTEGER,
-      allowNull: false,
-      unique: true,
-      foreignKey: true,
+      allowNull: true,
     },
     receiverId: {
       type: Sequelize.INTEGER,
       allowNull: true,
-      unique: true,
+    },
+    sentMessageId: {
+      type: Sequelize.INTEGER,
+      allowNull: true,
+    },
+    receivedMessageId: {
+      type: Sequelize.INTEGER,
+      allowNull: true,
     },
     createdAt: {
       allowNull: false,

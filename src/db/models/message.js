@@ -15,20 +15,26 @@ module.exports = (sequelize, DataTypes) => {
       },
       senderId: {
         type: DataTypes.INTEGER,
-        allowNull: false,
-        unique: true,
+        allowNull: true,
       },
       receiverId: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        unique: true,
+      },
+      sentMessageId: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
+      receivedMessageId: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
       },
     },
     {},
   );
-  // Message.associate = function association(models) {
-  //   Message.hasOne(models.User, { as: 'Sender', foreignKey: 'senderId' });
-  //   Message.hasOne(models.User, { as: 'Receiver', foreignKey: 'receiverId' });
-  // };
+  Message.associate = function association(models) {
+    Message.belongsTo(models.User, { as: 'sender' });
+    Message.belongsTo(models.User, { as: 'receiver' });
+  };
   return Message;
 };

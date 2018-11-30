@@ -21,6 +21,15 @@ module.exports = (sequelize, DataTypes) => {
     },
     {},
   );
-  User.associate = function (models) {};
+  User.associate = function associations(models) {
+    User.hasMany(models.Message, {
+      as: 'sentMessages',
+      foreignKey: 'sentMessageId',
+    });
+    User.hasMany(models.Message, {
+      as: 'receivedMessages',
+      foreignKey: 'receivedMessageId',
+    });
+  };
   return User;
 };
