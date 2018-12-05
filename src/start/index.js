@@ -5,6 +5,7 @@ const morgan = require('koa-morgan');
 const fs = require('fs');
 
 const { PORT } = require('../constants');
+const routes = require('./routes');
 
 const accessLogStream = fs.createWriteStream('access.log', {
   flags: 'a',
@@ -15,6 +16,7 @@ const bodyParser = new BodyParser();
 app.use(bodyParser);
 app.use(helmet);
 app.use(morgan('combined', { stream: accessLogStream }));
+app.use(routes.routes());
 
 app.listen(PORT, () => {
   // eslint-disable-next-line
