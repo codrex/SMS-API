@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest",
     "migrate": "sequelize db:migrate",
-    "migrate:undo": "sequelize db:migrate:undo:all"
+    "migrate:undo": "sequelize db:migrate:undo:all",
+    "start:dev": "nodemon src/start/index.js"
   },
   "repository": {
     "type": "git",
@@ -31,6 +32,12 @@
     "jest": "^23.6.0"
   },
   "dependencies": {
+    "koa": "^2.6.2",
+    "koa-bodyparser": "2",
+    "koa-helmet": "^4.0.0",
+    "koa-morgan": "^1.0.1",
+    "koa-router": "^7.4.0",
+    "nodemon": "^1.18.7",
     "pg": "^7.7.1",
     "pg-hstore": "^2.3.2",
     "sequelize": "^4.41.2"
