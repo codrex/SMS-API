@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "yarn clear-table && jest",
-    "clear-table": "NODE_ENV=test yarn migrate:undo && NODE_ENV=test yarn migrate",
+    "test": "jest",
     "migrate": "sequelize db:migrate",
     "migrate:undo": "sequelize db:migrate:undo:all"
   },
