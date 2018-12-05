@@ -14,21 +14,25 @@ module.exports = {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    senderId: {
-      type: Sequelize.INTEGER,
-      allowNull: true,
-    },
-    receiverId: {
-      type: Sequelize.INTEGER,
-      allowNull: true,
-    },
     sentMessageId: {
       type: Sequelize.INTEGER,
       allowNull: true,
+      references: {
+        model: 'Users',
+        key: 'id',
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE',
     },
     receivedMessageId: {
       type: Sequelize.INTEGER,
       allowNull: true,
+      references: {
+        model: 'Users',
+        key: 'id',
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'SET NULL',
     },
     createdAt: {
       allowNull: false,

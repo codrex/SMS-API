@@ -1,7 +1,7 @@
-const STATUS = {
-  READ: 'READ',
-  UNREAD: 'UNREAD',
-};
+const mock = require('./mock');
+const values = require('./values');
+
 module.exports = {
-  STATUS,
+  ...values,
+  ...mock,
 };

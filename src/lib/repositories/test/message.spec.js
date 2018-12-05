@@ -1,10 +1,10 @@
 const Message = require('../Message');
 const User = require('../User');
 const db = require('../../../db/models');
-const { STATUS } = require('../../../constants');
+const { USER_ONE, USER_TWO, createMessageMock } = require('../../../constants');
 
-const senderData = { phoneNumber: '09049489039', name: 'jone doe' };
-const receiverData = { phoneNumber: '09040004039', name: 'jone doe' };
+const senderData = USER_ONE;
+const receiverData = USER_TWO;
 let sender = {};
 let receiver = {};
 
@@ -13,14 +13,10 @@ describe('Message model repo', () => {
     sender = await User.create(db, senderData);
     receiver = await User.create(db, receiverData);
   });
+
   describe('create', () => {
     it('should create user record', async () => {
-      const messageData = {
-        text: 'message',
-        senderId: sender.id,
-        receiverId: receiver.id,
-        status: STATUS.UNREAD,
-      };
+      const messageData = createMessageMock(sender.id, receiver.id);
 
       const message = await Message.create(db, messageData);
       expect(message.text).toBe(messageData.text);
@@ -29,14 +25,8 @@ describe('Message model repo', () => {
       expect(message.receiver.name).toBe(receiverData.name);
     });
 
-    it('should get message', async () => {
-      const messageData = {
-        text: 'message',
-        senderId: sender.id,
-        receiverId: receiver.id,
-        status: STATUS.UNREAD,
-      };
-
+    it('should get a message', async () => {
+      const messageData = createMessageMock(sender.id, receiver.id);
       let message = await Message.create(db, messageData);
       message = await Message.get(db, message.id);
       expect(message.text).toBe(messageData.text);

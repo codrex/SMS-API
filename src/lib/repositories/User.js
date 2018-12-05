@@ -1,20 +1,20 @@
 class User {
   static __getIncludes(options, db) {
     const { receivedMsg, sentMsg } = options;
-    const includes = [];
+    const include = [];
     if (receivedMsg) {
-      includes.push({
-        model: db.User,
-        as: 'Received',
+      include.push({
+        model: db.Message,
+        as: 'receivedMessages',
       });
     }
     if (sentMsg) {
-      includes.push({
-        model: db.User,
-        as: 'Sent',
+      include.push({
+        model: db.Message,
+        as: 'sentMessages',
       });
     }
-    return includes;
+    return include;
   }
 
   static async create(db, user) {
@@ -27,7 +27,7 @@ class User {
       where: {
         id: userId,
       },
-      includes: User.__getIncludes(options),
+      include: User.__getIncludes(options, db),
     });
     return userRecord;
   }

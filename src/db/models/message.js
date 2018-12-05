@@ -13,17 +13,16 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.ENUM(STATUS.READ, STATUS.UNREAD),
         allowNull: false,
       },
-      senderId: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-      },
-      receiverId: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-      },
+
       sentMessageId: {
         type: DataTypes.INTEGER,
         allowNull: true,
+        references: {
+          model: 'User',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       receivedMessageId: {
         type: DataTypes.INTEGER,
@@ -33,8 +32,14 @@ module.exports = (sequelize, DataTypes) => {
     {},
   );
   Message.associate = function association(models) {
-    Message.belongsTo(models.User, { as: 'sender' });
-    Message.belongsTo(models.User, { as: 'receiver' });
+    Message.belongsTo(models.User, {
+      as: 'sender',
+      foreignKey: 'sentMessageId',
+    });
+    Message.belongsTo(models.User, {
+      as: 'receiver',
+      foreignKey: 'receivedMessageId',
+    });
   };
   return Message;
 };
