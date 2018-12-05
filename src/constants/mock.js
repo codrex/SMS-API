@@ -13,7 +13,12 @@ function createMessageMock(senderId, receiverId) {
 }
 
 function createUserMock() {
-  return { phoneNumber: `090${Date.now()}`, name: 'mark doe' };
+  const phoneNumber = `${Date.now()}090`
+    .split('')
+    .reverse()
+    .slice(0, 10)
+    .join('');
+  return { phoneNumber, name: 'mark doe' };
 }
 
 module.exports = {
