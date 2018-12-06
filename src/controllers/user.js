@@ -1,4 +1,3 @@
-const pushid = require('pushid');
 const User = require('../lib/repositories/User');
 
 const {
@@ -8,21 +7,17 @@ const {
   buildMsg,
 } = require('../lib/utils');
 const {
-  RESOURCE_CREATED_CODE,
   UNIQUE_CONSTRAINT_ERR,
   OK_CODE,
   NOT_FOUND,
   NOT_FOUND_ERROR,
-  RESOURCE_DELETED,
 } = require('../constants');
+const BaseController = require('./base');
 
-class UserController {
+class UserController extends BaseController {
   static async create(ctx) {
     try {
-      const { body } = ctx.request;
-      body.id = pushid();
-      const userRecord = await User.create(ctx.db, body);
-      sendSuccess(ctx, userRecord, RESOURCE_CREATED_CODE);
+      await super.create(ctx, User);
     } catch (error) {
       if (error.name === UNIQUE_CONSTRAINT_ERR) {
         const { path, message } = error.errors[0];
@@ -35,15 +30,7 @@ class UserController {
 
   static async get(ctx) {
     try {
-      const {
-        params: { id },
-      } = ctx;
-      const userRecord = await User.get(ctx.db, id);
-      if (userRecord) {
-        sendSuccess(ctx, userRecord, OK_CODE);
-      } else {
-        sendFailure(ctx, buildMsg(NOT_FOUND_ERROR), NOT_FOUND);
-      }
+      await super.get(ctx, User);
     } catch (error) {
       sendServerError(ctx);
     }
@@ -51,15 +38,7 @@ class UserController {
 
   static async delete(ctx) {
     try {
-      const {
-        params: { id },
-      } = ctx;
-      const userRecord = await User.delete(ctx.db, id);
-      if (userRecord) {
-        sendSuccess(ctx, buildMsg(RESOURCE_DELETED), OK_CODE);
-      } else {
-        sendFailure(ctx, buildMsg(NOT_FOUND_ERROR), NOT_FOUND);
-      }
+      await super.delete(ctx, User);
     } catch (error) {
       sendServerError(ctx);
     }
