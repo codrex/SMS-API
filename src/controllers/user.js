@@ -37,47 +37,37 @@ class UserController extends BaseController {
     }
   }
 
-  static getModel(options) {
-    return {
+  static async _getUserMessages(ctx, options) {
+    const model = {
       get: async (db, userId) => User.get(db, userId, options),
     };
+    try {
+      await super.get(ctx, model);
+    } catch (error) {
+      sendServerError(ctx);
+    }
   }
 
   static async getSentMessages(ctx) {
-    try {
-      await super.get(
-        ctx,
-        UserController.getModel({ sentMsg: true, exclude: EXCLUDES }),
-      );
-    } catch (error) {
-      sendServerError(ctx);
-    }
+    await UserController._getUserMessages(ctx, {
+      sentMsg: true,
+      exclude: EXCLUDES,
+    });
   }
 
   static async getReceiveMessages(ctx) {
-    try {
-      await super.get(
-        ctx,
-        UserController.getModel({ receivedMsg: true, exclude: EXCLUDES }),
-      );
-    } catch (error) {
-      sendServerError(ctx);
-    }
+    await UserController._getUserMessages(ctx, {
+      receivedMsg: true,
+      exclude: EXCLUDES,
+    });
   }
 
   static async getAllMessages(ctx) {
-    try {
-      await super.get(
-        ctx,
-        UserController.getModel({
-          receivedMsg: true,
-          sentMsg: true,
-          exclude: EXCLUDES,
-        }),
-      );
-    } catch (error) {
-      sendServerError(ctx);
-    }
+    await UserController._getUserMessages(ctx, {
+      receivedMsg: true,
+      sentMsg: true,
+      exclude: EXCLUDES,
+    });
   }
 
   static async delete(ctx) {
