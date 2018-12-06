@@ -43,11 +43,12 @@ class User {
   }
 
   static async delete(db, userId) {
-    await db.User.destroy({
+    const result = await db.User.destroy({
       where: {
         id: userId,
       },
     });
+    return result;
   }
 }
 

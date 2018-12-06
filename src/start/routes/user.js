@@ -1,15 +1,15 @@
 const Router = require('koa-router');
+const UserController = require('../../controllers/user');
+const {
+  validateCreateUserData,
+  validateUpdateUserData,
+} = require('../../middlewares');
 
 const user = new Router();
-const userEndpoint = '/:id';
 
-async function mock(ctx) {
-  ctx.body = 'hello user';
-}
-
-user.get(userEndpoint, mock);
-user.post(userEndpoint, mock);
-user.put(userEndpoint, mock);
-user.delete(userEndpoint, mock);
+user.post('/user', validateCreateUserData, UserController.create);
+user.get('/:id', UserController.get);
+user.put('/:id', UserController.update, validateUpdateUserData);
+user.delete('/:id', UserController.delete);
 
 module.exports = user;

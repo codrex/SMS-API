@@ -1,16 +1,20 @@
 const joi = require('joi');
-const { STATUS } = require('../constants');
+const { STATUS } = require('../../constants');
+const { overrideRegexErrorMsg } = require('../utils');
 
 const user = joi.object({
   phoneNumber: joi
     .string()
     .length(10)
     .regex(/^\d+$/)
-    .required(),
+    .required()
+    .error(overrideRegexErrorMsg('"phoneNumber" can only contain numbers')),
+
   name: joi
     .string()
     .regex(/^[a-zA-Z\s-]+$/)
-    .required(),
+    .required()
+    .error(overrideRegexErrorMsg('"name" can only contain alphabet and space')),
 });
 
 const message = joi.object({

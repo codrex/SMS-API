@@ -1,12 +1,16 @@
 const joi = require('joi');
 
 const { user, message } = require('../schema');
-const { createUserMock, createMessageMock } = require('../../constants');
+const { createUserMock, createMessageMock } = require('../../../constants');
 
 describe('schema', () => {
   describe('user', () => {
     it('should not throw an error', () => {
       expect(() => joi.assert(createUserMock(), user)).not.toThrowError();
+    });
+
+    it('should throw an error', () => {
+      expect(() => joi.assert({}, user)).toThrowError();
     });
     //  PHONE NUMBER ========================================================
 
