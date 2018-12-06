@@ -14,6 +14,7 @@ const {
 } = require('../constants');
 const BaseController = require('./base');
 
+const EXCLUDES = ['phoneNumber', 'name', 'createdAt', 'updatedAt'];
 class UserController extends BaseController {
   static async create(ctx) {
     try {
@@ -31,6 +32,49 @@ class UserController extends BaseController {
   static async get(ctx) {
     try {
       await super.get(ctx, User);
+    } catch (error) {
+      sendServerError(ctx);
+    }
+  }
+
+  static getModel(options) {
+    return {
+      get: async (db, userId) => User.get(db, userId, options),
+    };
+  }
+
+  static async getSentMessages(ctx) {
+    try {
+      await super.get(
+        ctx,
+        UserController.getModel({ sentMsg: true, exclude: EXCLUDES }),
+      );
+    } catch (error) {
+      sendServerError(ctx);
+    }
+  }
+
+  static async getReceiveMessages(ctx) {
+    try {
+      await super.get(
+        ctx,
+        UserController.getModel({ receivedMsg: true, exclude: EXCLUDES }),
+      );
+    } catch (error) {
+      sendServerError(ctx);
+    }
+  }
+
+  static async getAllMessages(ctx) {
+    try {
+      await super.get(
+        ctx,
+        UserController.getModel({
+          receivedMsg: true,
+          sentMsg: true,
+          exclude: EXCLUDES,
+        }),
+      );
     } catch (error) {
       sendServerError(ctx);
     }
