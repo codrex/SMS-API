@@ -4,6 +4,11 @@ module.exports = (sequelize, DataTypes) => {
   const Message = sequelize.define(
     'Message',
     {
+      id: {
+        allowNull: false,
+        primaryKey: true,
+        type: DataTypes.STRING,
+      },
       text: {
         type: DataTypes.STRING,
         allowNull: false,

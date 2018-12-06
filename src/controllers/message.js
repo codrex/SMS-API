@@ -1,3 +1,4 @@
+const pushid = require('pushid');
 const Message = require('../lib/repositories/Message');
 const {
   sendFailure,
@@ -17,6 +18,7 @@ class MessageController {
   static async create(ctx) {
     try {
       const { body } = ctx.request;
+      body.id = pushid();
       const messageRecord = await Message.create(ctx.db, body);
       sendSuccess(ctx, messageRecord, RESOURCE_CREATED_CODE);
     } catch (error) {
@@ -29,8 +31,7 @@ class MessageController {
       const {
         params: { id },
       } = ctx;
-      const { body } = ctx.request;
-      const record = await Message.update(ctx.db, body, id);
+      const record = await Message.get(ctx.db, id);
       if (record) {
         sendSuccess(ctx, record, OK_CODE);
       } else {

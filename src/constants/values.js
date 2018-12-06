@@ -12,6 +12,9 @@ const NOT_FOUND_ERROR = 'Resource not found';
 const SERVER_ERROR = 'Server error occurred';
 const UNIQUE_CONSTRAINT_ERR = 'SequelizeUniqueConstraintError';
 const RESOURCE_DELETED = 'Resource deleted';
+const INVALID_SENDER = 'Sender is not a valid user';
+const INVALID_RECEIVER = 'Receiver is not a valid user';
+
 module.exports = {
   PORT,
   STATUS,
@@ -24,4 +27,6 @@ module.exports = {
   NOT_FOUND_ERROR,
   UNAUTHORIZED_CODE,
   RESOURCE_DELETED,
+  INVALID_SENDER,
+  INVALID_RECEIVER,
 };

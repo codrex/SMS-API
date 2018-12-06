@@ -22,8 +22,8 @@ const message = joi.object({
     .string()
     .trim()
     .required(),
-  senderId: joi.number().required(),
-  receiverId: joi.number().required(),
+  senderId: joi.string().required(),
+  receiverId: joi.string().required(),
 });
 
 const status = joi.object({

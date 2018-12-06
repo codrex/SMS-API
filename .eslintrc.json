@@ -9,6 +9,7 @@
   "rules": {
     "max-len": [2, 80, 4],
     "import/prefer-default-export": "0",
-    "no-underscore-dangle": "off"
+    "no-underscore-dangle": "off",
+    "consistent-return": "off"
   }
 }

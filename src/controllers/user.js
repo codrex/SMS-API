@@ -1,4 +1,6 @@
+const pushid = require('pushid');
 const User = require('../lib/repositories/User');
+
 const {
   sendFailure,
   sendSuccess,
@@ -18,6 +20,7 @@ class UserController {
   static async create(ctx) {
     try {
       const { body } = ctx.request;
+      body.id = pushid();
       const userRecord = await User.create(ctx.db, body);
       sendSuccess(ctx, userRecord, RESOURCE_CREATED_CODE);
     } catch (error) {
