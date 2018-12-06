@@ -6,7 +6,8 @@ const { createUserMock, createMessageMock } = require('../../../constants');
 describe('schema', () => {
   describe('user', () => {
     it('should not throw an error', () => {
-      expect(() => joi.assert(createUserMock(), user)).not.toThrowError();
+      const { id, ...data } = createUserMock();
+      expect(() => joi.assert(data, user)).not.toThrowError();
     });
 
     it('should throw an error', () => {
@@ -49,7 +50,7 @@ describe('schema', () => {
     });
 
     it('should pass when contains space', () => {
-      const data = createUserMock();
+      const { id, ...data } = createUserMock();
       data.name = 'test user';
       expect(() => joi.assert(data, user)).not.toThrowError();
     });
@@ -57,7 +58,8 @@ describe('schema', () => {
 
   describe('message', () => {
     it('should not throw an error', () => {
-      expect(() => joi.assert(createMessageMock(1, 3), message)).not.toThrowError();
+      const { id, ...data } = createMessageMock('2fjfj', 'jjej');
+      expect(() => joi.assert(data, message)).not.toThrowError();
     });
     //  TEXT ========================================================
 
@@ -96,8 +98,8 @@ describe('schema', () => {
       expect(() => joi.assert(data, message)).toThrowError();
     });
 
-    it('should throw an error when sender id is not a number', () => {
-      const data = createMessageMock('123kfk', 2);
+    it('should throw an error when sender id is not a string', () => {
+      const data = createMessageMock(null, 2);
       expect(() => joi.assert(data, message)).toThrowError();
     });
 
@@ -107,8 +109,8 @@ describe('schema', () => {
       expect(() => joi.assert(data, message)).toThrowError();
     });
 
-    it('should throw an error when receiver id is not a number', () => {
-      const data = createMessageMock(3, '123kfk');
+    it('should throw an error when receiver id is not a string', () => {
+      const data = createMessageMock(3, {});
       expect(() => joi.assert(data, message)).toThrowError();
     });
   });

@@ -1,14 +1,14 @@
-const { STATUS } = require('./values');
+const pushid = require('pushid');
 
-const USER_ONE = { phoneNumber: '09049489039', name: 'mark doe' };
-const USER_TWO = { phoneNumber: '09040004039', name: 'john doe' };
+const USER_ONE = { phoneNumber: '09049489039', name: 'mark doe', id: 'one' };
+const USER_TWO = { phoneNumber: '09040004039', name: 'john doe', id: 'two' };
 
 function createMessageMock(senderId, receiverId) {
   return {
     text: 'very long message',
     senderId,
     receiverId,
-    status: STATUS.UNREAD,
+    id: pushid(),
   };
 }
 
@@ -18,7 +18,7 @@ function createUserMock() {
     .reverse()
     .slice(0, 10)
     .join('');
-  return { phoneNumber, name: 'mark doe' };
+  return { phoneNumber, name: 'mark doe', id: pushid() };
 }
 
 module.exports = {

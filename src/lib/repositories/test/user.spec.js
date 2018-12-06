@@ -6,7 +6,7 @@ const { createMessageMock, createUserMock } = require('../../../constants');
 describe('User model repo', () => {
   describe('create', () => {
     it('should create user record', async () => {
-      const userData = { phoneNumber: '09049484039', name: 'jone doe' };
+      const userData = createUserMock();
       const userRecord = await User.create(db, userData);
       expect(userRecord.phoneNumber).toBe(userData.phoneNumber);
       expect(userRecord.name).toBe(userData.name);
@@ -15,7 +15,7 @@ describe('User model repo', () => {
 
   describe('update', () => {
     it('should update user record', async () => {
-      const userData = { phoneNumber: '09049304039', name: 'jone doe' };
+      const userData = createUserMock();
       let userRecord = await User.create(db, userData);
       userRecord = await User.update(db, userRecord.id, {
         name: 'mary doe',
@@ -27,7 +27,7 @@ describe('User model repo', () => {
 
   describe('get', () => {
     it('should return user record', async () => {
-      const userData = { phoneNumber: '09000304039', name: 'jone doe' };
+      const userData = createUserMock();
       let userRecord = await User.create(db, userData);
       userRecord = await User.get(db, userRecord.id);
       expect(userRecord.phoneNumber).toBe(userData.phoneNumber);

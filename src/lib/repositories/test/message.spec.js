@@ -1,7 +1,12 @@
 const Message = require('../Message');
 const User = require('../User');
 const db = require('../../../db/models');
-const { USER_ONE, USER_TWO, createMessageMock } = require('../../../constants');
+const {
+  USER_ONE,
+  USER_TWO,
+  createMessageMock,
+  STATUS,
+} = require('../../../constants');
 
 const senderData = USER_ONE;
 const receiverData = USER_TWO;
@@ -17,10 +22,9 @@ describe('Message model repo', () => {
   describe('create', () => {
     it('should create user record', async () => {
       const messageData = createMessageMock(sender.id, receiver.id);
-
       const message = await Message.create(db, messageData);
       expect(message.text).toBe(messageData.text);
-      expect(message.status).toBe(messageData.status);
+      expect(message.status).toBe(STATUS.UNREAD);
       expect(message.sender.name).toBe(senderData.name);
       expect(message.receiver.name).toBe(receiverData.name);
     });
@@ -30,7 +34,7 @@ describe('Message model repo', () => {
       let message = await Message.create(db, messageData);
       message = await Message.get(db, message.id);
       expect(message.text).toBe(messageData.text);
-      expect(message.status).toBe(messageData.status);
+      expect(message.status).toBe(STATUS.UNREAD);
       expect(message.sender.name).toBe(senderData.name);
       expect(message.receiver.name).toBe(receiverData.name);
     });
