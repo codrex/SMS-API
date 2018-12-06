@@ -10,8 +10,9 @@ module.exports = (sequelize, DataTypes) => {
         validate: { notEmpty: true },
       },
       status: {
-        type: DataTypes.ENUM(STATUS.READ, STATUS.UNREAD),
+        type: DataTypes.STRING,
         allowNull: false,
+        defaultValue: STATUS.UNREAD,
       },
 
       sentMessageId: {

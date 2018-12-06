@@ -9,11 +9,10 @@ function validateSchema(schema) {
     throw new Error(SERVER_ERROR);
   }
 }
-async function validator(schema, ctx, next) {
+async function validator(schema, data, ctx, next) {
   try {
     validateSchema(schema);
-    const { body } = ctx.request;
-    await joi.validate(body, schema, { abortEarly: ABORT_EARLY });
+    await joi.validate(data, schema, { abortEarly: ABORT_EARLY });
     if (next) {
       await next();
     }

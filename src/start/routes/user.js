@@ -3,7 +3,7 @@ const UserController = require('../../controllers/user');
 const {
   validateCreateUserData,
   validateUpdateUserData,
-} = require('../../middlewares');
+} = require('../../middleware');
 
 const user = new Router();
 

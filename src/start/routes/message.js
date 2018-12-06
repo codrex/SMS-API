@@ -1,12 +1,15 @@
 const Router = require('koa-router');
+const MessageController = require('../../controllers/message');
+const {
+  validateCreateMessageData,
+  validateUpdateMessageStatus,
+} = require('../../middleware');
 
 const message = new Router();
-const messageEndpoint = '/:id';
 
-async function mock(ctx) {
-  ctx.body = { id: 'ooooo' };
-}
-message.post(messageEndpoint, mock);
-message.delete(messageEndpoint, mock);
+message.post('/message', validateCreateMessageData, MessageController.create);
+message.get('/:id', MessageController.get);
+message.patch('/:id', validateUpdateMessageStatus, MessageController.update);
+message.delete('/:id', MessageController.delete);
 
 module.exports = message;

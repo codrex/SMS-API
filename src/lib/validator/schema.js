@@ -22,12 +22,16 @@ const message = joi.object({
     .string()
     .trim()
     .required(),
-  status: joi
-    .string()
-    .only(Object.values(STATUS))
-    .uppercase(),
   senderId: joi.number().required(),
   receiverId: joi.number().required(),
 });
 
-module.exports = { message, user };
+const status = joi.object({
+  status: joi
+    .string()
+    .only(Object.values(STATUS))
+    .uppercase()
+    .required(),
+});
+
+module.exports = { message, user, status };

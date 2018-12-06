@@ -1,5 +1,5 @@
 class User {
-  static __getIncludes(options, db) {
+  static _getIncludes(options, db) {
     const { receivedMsg, sentMsg } = options;
     const include = [];
     if (receivedMsg) {
@@ -27,7 +27,7 @@ class User {
       where: {
         id: userId,
       },
-      include: User.__getIncludes(options, db),
+      include: User._getIncludes(options, db),
     });
     return userRecord;
   }
