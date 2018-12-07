@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       },
 
       sentMessageId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: true,
         references: {
           model: 'User',
@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: 'CASCADE',
       },
       receivedMessageId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: true,
       },
     },
